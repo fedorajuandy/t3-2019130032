@@ -14,7 +14,11 @@ class CreateAuthorsTable extends Migration
     public function up()
     {
         Schema::create('authors', function (Blueprint $table) {
-            $table->id();
+            $table->char('id', 13)->primary();
+            $table->string('nama');
+            $table->date('tanggal_lahir');
+            $table->string('asal');
+            $table->string('tentang');
             $table->timestamps();
         });
     }
