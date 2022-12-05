@@ -9,13 +9,26 @@ class CreateBooksTable extends Migration
     /**
      * Run the migrations.
      *
+     * id: char(13), primary key
+     * judul: varchar
+     * halaman: integer
+     * kategori: varchar
+     * penerbit: varchar
+     *
      * @return void
      */
     public function up()
     {
         Schema::create('books', function (Blueprint $table) {
-            $table->id();
+            $table->char('id', 13)->primary();
+            $table->string('judul');
+            $table->integer('halaman');
+            $table->string('kategori');
+            $table->string('penerbit');
+            $table->unsignedBigInteger('author_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
         });
     }
 
