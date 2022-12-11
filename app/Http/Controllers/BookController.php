@@ -14,7 +14,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $movies = Movie::all();
+        return view('movies.index', compact('movies'));
     }
 
     /**
@@ -24,7 +25,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('movies.create');
     }
 
     /**
@@ -35,7 +36,28 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'title' => 'required|max:255',
+            'genre' => 'required|max:100',
+            'description' => 'max:65535',
+            'year' => 'required|integer|min:1900|max:2099',
+            'rating' => 'required|numeric|min:1|max:10',
+        ]);
+
+        /* $movie = new Movie();
+        $movie->title = $validateData['title'];
+        $movie->genre = $validateData['genre'];
+        $movie->description = $validateData['description'];
+        $movie->year = $validateData['year'];
+        $movie->rating = $validateData['rating'];
+        $movie->save(); */
+
+        Movie::create($validateData);
+
+        /* flash data: store message into session for 1 redirect process */
+        /* flash('key', 'data') */
+        $request->session()->flash('success','Successfully adding new data!');
+        return redirect()->route('movies.index');
     }
 
     /**
@@ -46,7 +68,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return view('movies.show', compact('movie'));
     }
 
     /**
@@ -57,7 +79,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        return view('movies.edit', compact("movie"));
     }
 
     /**
@@ -69,7 +91,30 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $rules = [
+            'title' => 'required|max:255',
+            'genre' => 'required|max:100',
+            'description' => '',
+            'year' => 'required|integer|min:1900|max:2099',
+            'rating' => 'required|numeric|min:1|max:5',
+        ];
+
+        /* $validateData = $request->validate([
+            'title' => 'required|max:255',
+            'genre' => 'required|max:100',
+            'description' => 'max:65535',
+            'year' => 'required|integer|min:1900|max:2099',
+            'rating' => 'required|numeric|min:1|max:5',
+        ]); */
+
+        $validated = $request->validate($rules);
+
+        $movie->update($validated);
+        $request->session()->flash('success', "Berhasil memperbaharui data file {$validated['title']}.");
+
+        /* $movie->update($validateData);
+        $request->session()->flash('success',"Successfully updating {$validateData['title']}!");
+        return redirect()->route('movies.index'); */
     }
 
     /**
@@ -80,6 +125,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $movie->delete();
+        return redirect()->route('movies.index')->with('success',"Successfully deleting {$movie['title']}!");
     }
 }

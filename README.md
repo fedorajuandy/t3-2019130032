@@ -1,9 +1,12 @@
-# t3-2019130032
+# PPB UAS - Money Tracker
 
 2019130032 - Fedora Yoshe Juandy
 
-## Codes references
+## References
+
+### Codes
 
 - PBW class notes and past projects
 - PBWL class notes and past projects
-- <a href="https://getbootstrap.com/docs/4.1">Bootstrap 4 documentation</a>
+- [Bootstrap 4 documentation](https://getbootstrap.com/docs/4.1)
+- 
