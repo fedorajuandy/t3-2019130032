@@ -38,23 +38,35 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>Id</th>
                     <th>Judul</th>
                     <th>Halaman</th>
                     <th>Kategori</th>
                     <th>Penerbit</th>
-                    <th>Author id</th>
+                    <th>Author</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($books as $book)
                 <tr>
-                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $book->id }}</td>
                     <td>{{ $book->judul }}</td>
                     <td>{{ $book->halaman }}</td>
                     <td>{{ $book->kategori }}</td>
                     <td>{{ $book->penerbit }}</td>
-                    <td style="width: 40%">{{ $book->author_id }}</td>
+                    @forelse ($authors as $author)
+                        @if ($author->id == $book->author_id)
+                            <td>{{ $author->nama }}</td>
+                        @endif
+                    @empty
+                        <td align="center" colspan="6">No author.</td>
+                    @endforelse
+                    <td>
+                        <a href="{{ route('books.show', $book->id)  }}" type="button" class="btn btn-sm btn-info">
+                            <span class="text-light">View</span>
+                        </a>
+                    </td>
                 </tr>
                 @empty
                 <tr>
