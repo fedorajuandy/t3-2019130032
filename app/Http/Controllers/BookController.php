@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Http\Request;
@@ -62,7 +63,8 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        return view('books.show', compact('book'));
+        $author = DB::table('authors')->select('nama')->where('id', "$book->author_id")->first();
+        return view('books.show', compact('book'), compact('author'));
     }
 
     /**
@@ -99,6 +101,7 @@ class BookController extends Controller
 
         $book->update($validated);
         $request->session()->flash('success', "Berhasil memperbaharui data file {$validated['judul']}.");
+        return redirect()->route('books.show', $book->id);
     }
 
     /**
