@@ -1,61 +1,45 @@
 @extends('layout.master')
 
-@section('title', 'Edit Movie')
+@section('title', 'Edit Book')
 
 @section('content')
-<h2>Update New Movie</h2>
-    {{-- HTTP cannot immediately use PATCH --}}
-    <form action="{{ route('movies.update', ['movie' => $movie->id]) }}" method="POST">
+<h2>Update New Book</h2>
+    <form action="{{ route('books.update', ['book' => $book->id]) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label for="title">Title</label>
-                {{-- null coalescing operator --}}
-                {{-- equals
-                    @if( empty(old('title')) )
-                        $movie->title
-                    @else
-                        old('title')
-                    @endif
-                --}}
-                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title" value="{{ old('title') ?? $movie->title }}">
-                @error('title')
-                <div class="text-danger">{{ $message }}</div>
+                <label for="title">Judul</label>
+                <input type="text" class="form-control @error('judul') is-invalid @enderror" name="judul" id="judul" value="{{ old('judul') ?? $book->judul }}">
+                @error('judul')
+                    <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="col-md-6 mb-3">
-                <label for="genre">Genre</label>
-                <input type="text" class="form-control @error('genre') is-invalid @enderror" name="genre" id="genre" value="{{ old('genre') ?? $movie->genre }}">
-                @error('genre')
-                <div class="text-danger">{{ $message }}</div>
+                <label for="title">Halaman</label>
+                <input type="text" class="form-control @error('halaman') is-invalid @enderror" name="halaman" id="halaman" value="{{ old('halaman') }}">
+                @error('halaman')
+                    <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
-        </div>
-
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" rows="3">{{ old('description') ?? $movie->description }} </textarea>
-            @error('description')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
+            <div class="col-md-6 mb-3">
+                <label for="title">Kategori</label>
+                <input type="text" class="form-control @error('kategori') is-invalid @enderror" name="kategori" id="kategori" value="{{ old('kategori') }}">
+                @error('kategori')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="title">Penerbit</label>
+                <input type="text" class="form-control @error('penerbit') is-invalid @enderror" name="penerbit" id="penerbit" value="{{ old('penerbit') }}">
+                @error('penerbit')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
 
         <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="title">Year</label>
-                <input type="number" class="form-control @error('year') is-invalid @enderror" name="year" id="year" min="1900" max="2099" value="{{ old('year') ?? $movie->year }}">
-                @error('year')
-                <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="genre">Rating</label>
-                <input type="number" step="0.1" class="form-control @error('rating') is-invalid @enderror" name="rating" id="rating" min="1" max="10" value="{{ old('rating') ?? $movie->rating }}">
-                @error('rating')
-                <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
+            {{-- author --}}
         </div>
 
         <button class="btn btn-primary btn-lg btn-block" type="submit">Update</button>

@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title','Movies List')
+@section('title', 'Book List')
 
 @push('css_after')
 <style>
@@ -14,7 +14,6 @@
 @endpush
 
 @section('content')
-
 @if (session()->has('success'))
     <div class="alert alert-success" role="alert">
         {{ session()->get('success') }}
@@ -26,12 +25,12 @@
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h2>Movies List</h2>
+                    <h2>Book List</h2>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('movies.create') }}" class="btn btn-success">
+                    <a href="{{ route('books.create') }}" class="btn btn-success">
                         <i class="fa fa-plus fa-fw" aria-hidden="true"></i>
-                        <span>Add New Film</span>
+                        <span>Add New Book</span>
                     </a>
                 </div>
             </div>
@@ -40,22 +39,22 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Title</th>
-                    <th>Genre</th>
-                    <th>Year</th>
-                    <th>Rating</th>
-                    <th>Description</th>
+                    <th>Judul</th>
+                    <th>Halaman</th>
+                    <th>Kategori</th>
+                    <th>Penerbit</th>
+                    <th>Author id</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($movies as $movie)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $movie->title }}</td>
-                    <td>{{ $movie->genre }}</td>
-                    <td>{{ $movie->year }}</td>
-                    <td>{{ $movie->rating }}</td>
-                    <td style="width: 40%">{{ $movie->description }}</td>
+                    <td>{{ $movie->judul }}</td>
+                    <td>{{ $movie->halaman }}</td>
+                    <td>{{ $movie->kategori }}</td>
+                    <td>{{ $movie->penerbit }}</td>
+                    <td style="width: 40%">{{ $movie->author_id }}</td>
                 </tr>
                 @empty
                 <tr>
