@@ -9,4 +9,7 @@ class Book extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    // to remove default id
+    protected $primaryKey = 'id';
+    public $incrementing = false;
 }
