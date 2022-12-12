@@ -38,19 +38,25 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>Id</th>
                     <th>Nama</th>
                     <th>Kota</th>
                     <th>Negara</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($authors as $author)
                 <tr>
-                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $author->id }}</td>
                     <td>{{ $author->nama }}</td>
                     <td>{{ $author->kota }}</td>
                     <td>{{ $author->negara }}</td>
+                    <td>
+                        <a href="{{ route('authors.show', $author->id)  }}" type="button" class="btn btn-sm btn-info">
+                            <span class="text-light">View</span>
+                        </a>
+                    </td>
                 </tr>
                 @empty
                 <tr>
