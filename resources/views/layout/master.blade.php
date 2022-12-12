@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>@yield('title', 'XYZLibrary') | XYZ Library</title>
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/style-modified.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style-modified.css?v=').time() }}">
         @stack('css_after')
     </head>
 
