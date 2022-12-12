@@ -14,8 +14,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        $movies = Movie::all();
-        return view('movies.index', compact('movies'));
+        $books = Book::all();
+        return view('books.index', compact('books'));
     }
 
     /**
@@ -25,7 +25,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('movies.create');
+        return view('books.create');
     }
 
     /**
@@ -37,27 +37,18 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'title' => 'required|max:255',
-            'genre' => 'required|max:100',
-            'description' => 'max:65535',
-            'year' => 'required|integer|min:1900|max:2099',
-            'rating' => 'required|numeric|min:1|max:10',
+            'id' => 'required|min:13|max:13',
+            'judul' => 'required|max:255',
+            'halaman' => 'required|integer',
+            'kategori' => 'required|max:255',
+            'penerbit' => 'required|max:255',
+            'author_id' => 'required|min:13|max:13',
         ]);
 
-        /* $movie = new Movie();
-        $movie->title = $validateData['title'];
-        $movie->genre = $validateData['genre'];
-        $movie->description = $validateData['description'];
-        $movie->year = $validateData['year'];
-        $movie->rating = $validateData['rating'];
-        $movie->save(); */
+        Book::create($validateData);
 
-        Movie::create($validateData);
-
-        /* flash data: store message into session for 1 redirect process */
-        /* flash('key', 'data') */
-        $request->session()->flash('success','Successfully adding new data!');
-        return redirect()->route('movies.index');
+        $request->session()->flash('success', 'Successfully adding new data!');
+        return redirect()->route('books.index');
     }
 
     /**
@@ -68,7 +59,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        return view('movies.show', compact('movie'));
+        return view('books.show', compact('book'));
     }
 
     /**
@@ -79,7 +70,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        return view('movies.edit', compact("movie"));
+        return view('books.edit', compact("book"));
     }
 
     /**
@@ -92,29 +83,18 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $rules = [
-            'title' => 'required|max:255',
-            'genre' => 'required|max:100',
-            'description' => '',
-            'year' => 'required|integer|min:1900|max:2099',
-            'rating' => 'required|numeric|min:1|max:5',
+            'id' => 'required|min:13|max:13',
+            'judul' => 'required|max:255',
+            'halaman' => 'required|integer',
+            'kategori' => 'required|max:255',
+            'penerbit' => 'required|max:255',
+            'author_id' => 'required|min:13|max:13',
         ];
-
-        /* $validateData = $request->validate([
-            'title' => 'required|max:255',
-            'genre' => 'required|max:100',
-            'description' => 'max:65535',
-            'year' => 'required|integer|min:1900|max:2099',
-            'rating' => 'required|numeric|min:1|max:5',
-        ]); */
 
         $validated = $request->validate($rules);
 
-        $movie->update($validated);
-        $request->session()->flash('success', "Berhasil memperbaharui data file {$validated['title']}.");
-
-        /* $movie->update($validateData);
-        $request->session()->flash('success',"Successfully updating {$validateData['title']}!");
-        return redirect()->route('movies.index'); */
+        $book->update($validated);
+        $request->session()->flash('success', "Berhasil memperbaharui data file {$validated['judul']}.");
     }
 
     /**
@@ -125,7 +105,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        $movie->delete();
-        return redirect()->route('movies.index')->with('success',"Successfully deleting {$movie['title']}!");
+        $book->delete();
+        return redirect()->route('books.index')->with('success', "Successfully deleting {$book['judul']}!");
     }
 }

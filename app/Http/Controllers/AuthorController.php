@@ -14,7 +14,8 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+        $authors = Author::all();
+        return view('authors.index', compact('authors'));
     }
 
     /**
@@ -24,7 +25,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
+        return view('authors.create');
     }
 
     /**
@@ -35,7 +36,17 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'id' => 'required|min:13|max:13',
+            'nama' => 'required|max:255',
+            'kota' => 'required|max:255',
+            'negara' => 'required|max:255',
+        ]);
+
+        Author::create($validateData);
+
+        $request->session()->flash('success', 'Successfully adding new data!');
+        return redirect()->route('authors.index');
     }
 
     /**
@@ -46,7 +57,7 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
-        //
+        return view('authors.show', compact('author'));
     }
 
     /**
@@ -57,7 +68,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
+        return view('authors.edit', compact("author"));
     }
 
     /**
@@ -69,7 +80,17 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $rules = [
+            'id' => 'required|min:13|max:13',
+            'nama' => 'required|max:255',
+            'kota' => 'required|max:255',
+            'negara' => 'required|max:255',
+        ];
+
+        $validated = $request->validate($rules);
+
+        $book->update($validated);
+        $request->session()->flash('success', "Berhasil memperbaharui data file {$validated['judul']}.");
     }
 
     /**
@@ -80,6 +101,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $book->delete();
+        return redirect()->route('authors.index')->with('success', "Successfully deleting {$book['nama']}!");
     }
 }
