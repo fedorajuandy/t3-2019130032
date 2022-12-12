@@ -90,7 +90,8 @@ class AuthorController extends Controller
         $validated = $request->validate($rules);
 
         $author->update($validated);
-        $request->session()->flash('success', "Berhasil memperbaharui data file {$validated['judul']}.");
+        $request->session()->flash('success', "Berhasil memperbaharui data file {$validated['nama']}.");
+        return redirect()->route('authors.show', $author->id);
     }
 
     /**
