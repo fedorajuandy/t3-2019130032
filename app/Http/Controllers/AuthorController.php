@@ -89,7 +89,7 @@ class AuthorController extends Controller
 
         $validated = $request->validate($rules);
 
-        $book->update($validated);
+        $author->update($validated);
         $request->session()->flash('success', "Berhasil memperbaharui data file {$validated['judul']}.");
     }
 
@@ -101,7 +101,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        $book->delete();
-        return redirect()->route('authors.index')->with('success', "Successfully deleting {$book['nama']}!");
+        $author->delete();
+        return redirect()->route('authors.index')->with('success', "Successfully deleting {$author['nama']}!");
     }
 }

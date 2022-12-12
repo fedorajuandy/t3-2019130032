@@ -47,14 +47,14 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($movies as $movie)
+                @forelse ($books as $book)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $movie->judul }}</td>
-                    <td>{{ $movie->halaman }}</td>
-                    <td>{{ $movie->kategori }}</td>
-                    <td>{{ $movie->penerbit }}</td>
-                    <td style="width: 40%">{{ $movie->author_id }}</td>
+                    <td>{{ $book->judul }}</td>
+                    <td>{{ $book->halaman }}</td>
+                    <td>{{ $book->kategori }}</td>
+                    <td>{{ $book->penerbit }}</td>
+                    <td style="width: 40%">{{ $book->author_id }}</td>
                 </tr>
                 @empty
                 <tr>

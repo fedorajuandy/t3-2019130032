@@ -8,6 +8,13 @@
     @csrf
     <div class="row">
         <div class="col-md-6 mb-3">
+            <label for="title">Id</label>
+            <input type="text" class="form-control @error('id') is-invalid @enderror" name="id" id="id" value="{{ old('id') }}">
+            @error('id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="col-md-6 mb-3">
             <label for="title">Nama</label>
             <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama" value="{{ old('nama') }}">
             @error('nama')
