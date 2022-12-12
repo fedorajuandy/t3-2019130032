@@ -3,6 +3,12 @@
 @section('title', $book->judul)
 
 @section('content')
+@if (session()->has('success'))
+    <div class="alert alert-success" role="alert">
+        {{ session()->get('success') }}
+    </div>
+@endif
+
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-8">
@@ -21,20 +27,16 @@
             </div>
         </div>
     </div>
-    {{-- halaman, kategori, penerbit, au --}}
-    <p>
-        <ul class="list-inline">
-            <li class="list-inline-item">
-                <i class="fa fa-th-large fa-fw"></i>
-                <em>{{ $book->kategori }}</em>
-            </li>
-            <li class="list-inline-item">
-                <i class="fa fa-calendar fa-fw"></i>
-                {{ $book->penerbit }}
-            </li>
-        </ul>
-    </p>
+
     <hr>
-    <p class="lead">{{ $book->description }}</p>
+
+    <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Halaman: {{ $book->halaman }}</li>
+            <li class="list-group-item">Kategori: {{ $book->kategori }}</li>
+            <li class="list-group-item">Penerbit: {{ $book->penerbit }}</li>
+            <li class="list-group-item"> Author: {{ $author->nama }}</li>
+        </ul>
+    </div>
 </div>
 @endsection
